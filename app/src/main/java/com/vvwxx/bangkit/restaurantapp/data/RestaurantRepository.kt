@@ -6,8 +6,6 @@ import com.vvwxx.bangkit.restaurantapp.data.remote.retrofit.ApiService
 import com.vvwxx.bangkit.restaurantapp.ui.common.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.Flow
 
 class RestaurantRepository(
     private val apiService: ApiService,
@@ -18,8 +16,8 @@ class RestaurantRepository(
     private val _detailRestaurant = MutableStateFlow<UiState<DetailRestaurantResponse>>(UiState.Loading)
     val detailRestaurant: StateFlow<UiState<DetailRestaurantResponse>> get() = _detailRestaurant
 
-    suspend fun getAllRestaurant(): Flow<UiState<List<RestaurantsItem>>> = flow {
-        emit(UiState.Loading)
+    suspend fun getAllRestaurant() {
+        _listRestaurant.value = UiState.Loading
         try {
             val response = apiService.getRestaurant()
             val restaurant = response.restaurants
@@ -29,8 +27,8 @@ class RestaurantRepository(
         }
     }
 
-    suspend fun getDetailRestaurant(id: String) : Flow<UiState<DetailRestaurantResponse>> = flow {
-        emit(UiState.Loading)
+    suspend fun getDetailRestaurant(id: String) {
+        _detailRestaurant.value = UiState.Loading
         try {
             val response = apiService.getDetailRestaurant(id)
             _detailRestaurant.value = UiState.Success(response)

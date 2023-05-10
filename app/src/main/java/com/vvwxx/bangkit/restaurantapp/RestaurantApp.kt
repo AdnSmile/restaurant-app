@@ -2,6 +2,7 @@ package com.vvwxx.bangkit.restaurantapp
 
 import android.content.Context
 import android.content.Intent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -13,7 +14,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -24,8 +24,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.vvwxx.bangkit.restaurantapp.ui.navigation.NavigationItem
 import com.vvwxx.bangkit.restaurantapp.ui.navigation.Screen
-import com.vvwxx.bangkit.restaurantapp.R
-import com.vvwxx.bangkit.restaurantapp.data.remote.response.Restaurant
+import com.vvwxx.bangkit.restaurantapp.ui.screen.home.HomeScreen
 import com.vvwxx.bangkit.restaurantapp.ui.theme.RestaurantAppTheme
 
 @Composable
@@ -52,6 +51,12 @@ fun RestaurantApp(
         ) {
             composable(Screen.Home.route) {
                 // panggil home screen nanti disini
+                HomeScreen(
+                    navigateToDetail = {id ->
+                        navController.navigate(Screen.DetailRestaurant.createRoute(id))
+                    },
+                    modifier = Modifier.background(color = MaterialTheme.colors.background)
+                )
             }
 
             composable(Screen.Favorite.route) {
