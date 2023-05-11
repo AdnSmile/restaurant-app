@@ -24,6 +24,7 @@ import com.vvwxx.bangkit.restaurantapp.ui.navigation.NavigationItem
 import com.vvwxx.bangkit.restaurantapp.ui.navigation.Screen
 import com.vvwxx.bangkit.restaurantapp.ui.screen.detail.DetailScreen
 import com.vvwxx.bangkit.restaurantapp.ui.screen.home.HomeScreen
+import com.vvwxx.bangkit.restaurantapp.ui.screen.profile.ProfileScreen
 import com.vvwxx.bangkit.restaurantapp.ui.theme.RestaurantAppTheme
 
 @Composable
@@ -63,7 +64,7 @@ fun RestaurantApp(
             }
 
             composable(Screen.Profile.route) {
-                // panggil profile screen nanti disini
+                ProfileScreen()
             }
 
             composable(
@@ -115,7 +116,7 @@ fun BottomBar(
                     icon = {
                         Icon(
                             imageVector = item.icon,
-                            contentDescription = item.title
+                            contentDescription = if (item.title == "Profile") "about_page" else item.title
                         )
                     },
                     label = { Text(item.title) },

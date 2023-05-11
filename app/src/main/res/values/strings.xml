@@ -9,6 +9,7 @@
     <string name="text_about">About</string>
     <string name="text_foods">Foods</string>
     <string name="text_drinks">Drinks</string>
+    <string name="profile_name">Nessafitri</string>
+    <string name="profile_email">nessafitri16@gmail.com</string>
 
-    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </string>
 </resources>
