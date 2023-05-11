@@ -25,7 +25,7 @@ fun MenuItem(
     modifier: Modifier = Modifier,
 ) {
 
-    val img = if (jenis == "foods") painterResource(R.drawable.food4) else painterResource(R.drawable.drink2)
+    val img = if (jenis == "foods") painterResource(R.drawable.food) else painterResource(R.drawable.drink3)
 
     Card(
         modifier = modifier.width(110.dp),

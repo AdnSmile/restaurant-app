@@ -18,14 +18,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.vvwxx.bangkit.restaurantapp.data.remote.response.RestaurantsItem
 import com.vvwxx.bangkit.restaurantapp.ui.theme.RestaurantAppTheme
 import com.vvwxx.bangkit.restaurantapp.R
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun RestaurantItem(
-    resto: RestaurantsItem,
+    pictureId: String,
+    name: String,
+    city: String,
+    rating: Double,
     modifier: Modifier = Modifier,
 ) {
     Card(
@@ -36,7 +38,7 @@ fun RestaurantItem(
             modifier = modifier
         ) {
             GlideImage(
-                model = "https://restaurant-api.dicoding.dev/images/medium/${resto.pictureId}",
+                model = "https://restaurant-api.dicoding.dev/images/medium/$pictureId",
                 contentDescription = null,
                 modifier = Modifier
                     .padding(16.dp)
@@ -48,7 +50,7 @@ fun RestaurantItem(
 
             Column(modifier = Modifier.padding(start = 16.dp, bottom = 8.dp, end = 16.dp)) {
                 Text(
-                   text = resto.name,
+                   text = name,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.h6.copy(
@@ -57,7 +59,7 @@ fun RestaurantItem(
                 )
 
                 Text(
-                    text = resto.city,
+                    text = city,
                     overflow = TextOverflow.Ellipsis,
                 )
 
@@ -72,7 +74,7 @@ fun RestaurantItem(
                     )
 
                     Text(
-                        text = resto.rating.toString(),
+                        text = rating.toString(),
                         style = MaterialTheme.typography.subtitle2,
                         modifier = Modifier.padding(start = 4.dp)
                     )
@@ -87,13 +89,10 @@ fun RestaurantItem(
 fun RestaurantItemPreview() {
     RestaurantAppTheme {
         RestaurantItem(
-            resto = RestaurantsItem(
                 "17",
                 "Medan",
                 "Mantep banget",
                 4.9,
-                "Loram ipsum",
-            )
         )
     }
 }

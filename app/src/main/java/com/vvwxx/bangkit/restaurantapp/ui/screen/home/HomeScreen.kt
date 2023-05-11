@@ -55,12 +55,15 @@ fun HomeContent(
     navigateToDetail: (String) -> Unit,
 ) {
     LazyColumn(
-        contentPadding = PaddingValues(bottom = 80.dp),
+        contentPadding = PaddingValues(bottom = 16.dp, top = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(listResto) { data ->
             RestaurantItem(
-                data,
+                data.pictureId,
+                data.name,
+                data.city,
+                data.rating,
                 modifier = Modifier.clickable {
                     navigateToDetail(data.id)
                 }

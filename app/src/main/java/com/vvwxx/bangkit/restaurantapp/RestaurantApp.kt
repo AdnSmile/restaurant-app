@@ -1,7 +1,5 @@
 package com.vvwxx.bangkit.restaurantapp
 
-import android.content.Context
-import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
@@ -24,6 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.vvwxx.bangkit.restaurantapp.ui.navigation.NavigationItem
 import com.vvwxx.bangkit.restaurantapp.ui.navigation.Screen
+import com.vvwxx.bangkit.restaurantapp.ui.screen.detail.DetailScreen
 import com.vvwxx.bangkit.restaurantapp.ui.screen.home.HomeScreen
 import com.vvwxx.bangkit.restaurantapp.ui.theme.RestaurantAppTheme
 
@@ -72,7 +71,10 @@ fun RestaurantApp(
                 arguments = listOf(navArgument("id") { type = NavType.StringType} ),
             ) {
                 val id = it.arguments?.getString("id") ?: ""
-                // panggil detail screen nanti
+                DetailScreen(
+                    id = id,
+                    navigateBack = { navController.navigateUp() },
+                )
             }
         }
     }
@@ -131,21 +133,6 @@ fun BottomBar(
             }
         }
     }
-}
-
-private fun shareResto(context: Context, summary: String) {
-    val intent = Intent(Intent.ACTION_SEND).apply {
-        type = "text/plain"
-        putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.resto_app))
-        putExtra(Intent.EXTRA_TEXT, summary)
-    }
-
-    context.startActivity(
-        Intent.createChooser(
-            intent,
-            context.getString(R.string.resto_app)
-        )
-    )
 }
 
 @Preview(showBackground = true)
