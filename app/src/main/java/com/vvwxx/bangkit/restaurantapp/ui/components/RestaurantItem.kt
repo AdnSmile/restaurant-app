@@ -68,8 +68,14 @@ fun RestaurantItem(
 
                     Text(
                         text = resto.rating.toString(),
-                        style = MaterialTheme.typography.subtitle2,
+                        style = MaterialTheme.typography.subtitle1,
                         modifier = Modifier.padding(start = 4.dp)
+                    )
+
+                    Text(
+                        text = resto.city,
+                        style = MaterialTheme.typography.subtitle1,
+                        modifier = Modifier.weight(2f).offset(x = 225.dp, y = (-24).dp)
                     )
                 }
             }
@@ -88,7 +94,6 @@ fun RestaurantItemPreview() {
                 "Mantep banget",
                 4.9,
                 "Loram ipsum",
-                ""
             )
         )
     }

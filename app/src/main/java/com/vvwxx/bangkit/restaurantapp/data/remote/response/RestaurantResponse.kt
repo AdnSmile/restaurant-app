@@ -31,9 +31,6 @@ data class RestaurantsItem(
 	@field:SerializedName("rating")
 	val rating: Double,
 
-	@field:SerializedName("description")
-	val description: String,
-
 	@field:SerializedName("id")
 	val id: String
 )
