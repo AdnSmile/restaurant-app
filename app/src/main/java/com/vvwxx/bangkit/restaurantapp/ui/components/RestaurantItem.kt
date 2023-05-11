@@ -51,9 +51,14 @@ fun RestaurantItem(
                    text = resto.name,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.subtitle1.copy(
+                    style = MaterialTheme.typography.h6.copy(
                         fontWeight = FontWeight.ExtraBold
                     )
+                )
+
+                Text(
+                    text = resto.city,
+                    overflow = TextOverflow.Ellipsis,
                 )
 
                 Row(
@@ -68,14 +73,8 @@ fun RestaurantItem(
 
                     Text(
                         text = resto.rating.toString(),
-                        style = MaterialTheme.typography.subtitle1,
+                        style = MaterialTheme.typography.subtitle2,
                         modifier = Modifier.padding(start = 4.dp)
-                    )
-
-                    Text(
-                        text = resto.city,
-                        style = MaterialTheme.typography.subtitle1,
-                        modifier = Modifier.weight(2f).offset(x = 225.dp, y = (-24).dp)
                     )
                 }
             }
