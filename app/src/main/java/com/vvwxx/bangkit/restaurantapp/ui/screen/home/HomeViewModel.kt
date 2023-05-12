@@ -1,5 +1,7 @@
 package com.vvwxx.bangkit.restaurantapp.ui.screen.home
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vvwxx.bangkit.restaurantapp.data.RestaurantRepository
@@ -12,11 +14,21 @@ class HomeViewModel(
     private val repo : RestaurantRepository
 ) : ViewModel() {
 
-    val listRestaurant: StateFlow<UiState<List<RestaurantsItem>>> = repo.listRestaurant
+    val listRestaurant: StateFlow<UiState<List<RestaurantsItem>>> get() = repo.listRestaurant
+
+    private val _query = mutableStateOf("")
+    val query: State<String> get() = _query
 
     fun getAllRestaurant() {
         viewModelScope.launch {
             repo.getAllRestaurant()
+        }
+    }
+
+    fun getSearchResponse(query: String) {
+        _query.value = query
+        viewModelScope.launch {
+            repo.getSearchResponse(query)
         }
     }
 

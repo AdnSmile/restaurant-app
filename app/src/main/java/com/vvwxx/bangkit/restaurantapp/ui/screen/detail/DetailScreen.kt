@@ -112,7 +112,7 @@ fun DetailContent(
             }
 
             Column(
-                modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
+                modifier = Modifier.padding(start = 26.dp, end = 26.dp, bottom = 26.dp)
             ) {
                 GlideImage(
                     model = "https://restaurant-api.dicoding.dev/images/medium/${resto.pictureId}",

@@ -1,5 +1,6 @@
 package com.vvwxx.bangkit.restaurantapp.data
 
+import androidx.compose.runtime.mutableStateOf
 import com.vvwxx.bangkit.restaurantapp.data.remote.response.DetailRestaurantResponse
 import com.vvwxx.bangkit.restaurantapp.data.remote.response.RestaurantsItem
 import com.vvwxx.bangkit.restaurantapp.data.remote.retrofit.ApiService
@@ -34,6 +35,17 @@ class RestaurantRepository(
             _detailRestaurant.value = UiState.Success(response)
         } catch (e: Exception) {
             _detailRestaurant.value = UiState.Error(e.message.toString())
+        }
+    }
+
+    suspend fun getSearchResponse(query: String) {
+        _listRestaurant.value = UiState.Loading
+        try {
+            val response = apiService.getSearchRestaurant(query)
+            val resto = response.restaurants
+            _listRestaurant.value = UiState.Success(resto)
+        } catch (e: Exception) {
+            _listRestaurant.value = UiState.Error(e.message.toString())
         }
     }
 
