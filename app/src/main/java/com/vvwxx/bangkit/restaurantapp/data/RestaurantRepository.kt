@@ -1,30 +1,27 @@
 package com.vvwxx.bangkit.restaurantapp.data
 
-import androidx.compose.runtime.mutableStateOf
 import com.vvwxx.bangkit.restaurantapp.data.remote.response.DetailRestaurantResponse
 import com.vvwxx.bangkit.restaurantapp.data.remote.response.RestaurantsItem
+import com.vvwxx.bangkit.restaurantapp.data.remote.response.SearchRestaurantResponse
 import com.vvwxx.bangkit.restaurantapp.data.remote.retrofit.ApiService
 import com.vvwxx.bangkit.restaurantapp.ui.common.UiState
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 
 class RestaurantRepository(
     private val apiService: ApiService,
 ) {
-    private val _listRestaurant = MutableStateFlow<UiState<List<RestaurantsItem>>>(UiState.Loading)
-    val listRestaurant: StateFlow<UiState<List<RestaurantsItem>>> get() = _listRestaurant
-
     private val _detailRestaurant = MutableStateFlow<UiState<DetailRestaurantResponse>>(UiState.Loading)
     val detailRestaurant: StateFlow<UiState<DetailRestaurantResponse>> get() = _detailRestaurant
 
-    suspend fun getAllRestaurant() {
-        _listRestaurant.value = UiState.Loading
-        try {
-            val response = apiService.getRestaurant()
-            val restaurant = response.restaurants
-            _listRestaurant.value = UiState.Success(restaurant)
-        } catch (e: Exception) {
-            _listRestaurant.value = UiState.Error(e.message.toString())
+    // ngambil data dari api, trus di ubah ke Flow
+    private suspend fun getSearch(query: String) : Flow<SearchRestaurantResponse> {
+        return flowOf(apiService.getSearchRestaurant(query))
+    }
+
+    // ngambil data Flow getSearch, namun cuma diambil RestaurantsItem aja
+    suspend fun getSearchRestorant(query: String) : Flow<List<RestaurantsItem>> {
+        return getSearch(query).map {
+            it.restaurants
         }
     }
 
@@ -37,18 +34,6 @@ class RestaurantRepository(
             _detailRestaurant.value = UiState.Error(e.message.toString())
         }
     }
-
-    suspend fun getSearchResponse(query: String) {
-        _listRestaurant.value = UiState.Loading
-        try {
-            val response = apiService.getSearchRestaurant(query)
-            val resto = response.restaurants
-            _listRestaurant.value = UiState.Success(resto)
-        } catch (e: Exception) {
-            _listRestaurant.value = UiState.Error(e.message.toString())
-        }
-    }
-
 
     companion object {
         @Volatile

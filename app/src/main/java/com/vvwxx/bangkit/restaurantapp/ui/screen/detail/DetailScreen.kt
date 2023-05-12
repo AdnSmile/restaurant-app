@@ -70,7 +70,6 @@ fun DetailContent(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-//    var isFavorite by rememberSaveable{ mutableStateOf(isFavorite) }
 
     Column(modifier = modifier) {
         Column(
@@ -181,7 +180,7 @@ fun DetailContent(
                 LazyRow(
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    items(resto.menus.foods) { data ->
+                    items(resto.menus.foods, key = {it.name}) { data ->
                         MenuItem(jenis = "foods", menu = data.name)
                     }
                 }
@@ -199,7 +198,7 @@ fun DetailContent(
                 LazyRow(
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    items(resto.menus.drinks) { data ->
+                    items(resto.menus.drinks, key = {it.name}) { data ->
                         MenuItem(jenis = "drinks", menu = data.name)
                     }
                 }

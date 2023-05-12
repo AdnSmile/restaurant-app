@@ -18,6 +18,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vvwxx.bangkit.restaurantapp.di.Injection
 import com.vvwxx.bangkit.restaurantapp.ui.ViewModelFactory
 import com.vvwxx.bangkit.restaurantapp.ui.common.UiState
+import com.vvwxx.bangkit.restaurantapp.ui.components.EmptyDataItem
 import com.vvwxx.bangkit.restaurantapp.ui.components.SearchBar
 
 @Composable
@@ -34,7 +35,7 @@ fun HomeScreen(
     viewModel.listRestaurant.collectAsState(initial = UiState.Loading).value.let { uiState ->
         when (uiState) {
             is UiState.Loading -> {
-                viewModel.getSearchResponse(query)
+                viewModel.getSearch(query)
             }
 
             is UiState.Success -> {
@@ -44,14 +45,17 @@ fun HomeScreen(
                 ) {
                     SearchBar(
                         query = query,
-                        onQueryChanges = viewModel::getSearchResponse,
+                        onQueryChanges = viewModel::getSearch,
                         modifier = Modifier.background(color = MaterialTheme.colors.primary)
                     )
+                    if (uiState.data.isEmpty()) EmptyDataItem(Modifier.fillMaxSize().padding(16.dp))
+                    else {
+                        HomeContent(
+                            listResto = uiState.data,
+                            navigateToDetail = navigateToDetail
+                        )
+                    }
 
-                    HomeContent(
-                        listResto = uiState.data,
-                        navigateToDetail = navigateToDetail
-                    )
                 }
             }
 
