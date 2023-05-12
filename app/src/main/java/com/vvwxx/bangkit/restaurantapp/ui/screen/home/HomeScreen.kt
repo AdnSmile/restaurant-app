@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.vvwxx.bangkit.restaurantapp.data.remote.response.RestaurantsItem
 import com.vvwxx.bangkit.restaurantapp.ui.components.RestaurantItem
@@ -24,11 +25,11 @@ import com.vvwxx.bangkit.restaurantapp.ui.components.SearchBar
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = viewModel(
-        factory = ViewModelFactory(Injection.provideRepository())
-    ),
     navigateToDetail: (String) -> Unit,
 ) {
+    val viewModel : HomeViewModel = viewModel(
+        factory = ViewModelFactory(Injection.provideRepository(LocalContext.current))
+    )
 
     val query by viewModel.query
 

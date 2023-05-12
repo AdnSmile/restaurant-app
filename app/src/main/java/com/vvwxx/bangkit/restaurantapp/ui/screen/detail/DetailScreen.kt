@@ -1,5 +1,6 @@
 package com.vvwxx.bangkit.restaurantapp.ui.screen.detail
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -14,10 +15,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,21 +33,24 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.vvwxx.bangkit.restaurantapp.R
+import com.vvwxx.bangkit.restaurantapp.data.local.RestaurantEntity
 import com.vvwxx.bangkit.restaurantapp.di.Injection
 import com.vvwxx.bangkit.restaurantapp.ui.ViewModelFactory
 import com.vvwxx.bangkit.restaurantapp.ui.common.UiState
+import com.vvwxx.bangkit.restaurantapp.ui.components.FavoriteIconButton
 import com.vvwxx.bangkit.restaurantapp.ui.components.MenuItem
+import com.vvwxx.bangkit.restaurantapp.ui.screen.favorite.FavoriteViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun DetailScreen(
     id: String,
-    viewModel: DetailViewModel = viewModel(
-        factory = ViewModelFactory(
-            Injection.provideRepository()
-        )
-    ),
     navigateBack: () -> Unit,
 ) {
+    val context = LocalContext.current
+    val viewModel: DetailViewModel = viewModel(
+        factory = ViewModelFactory(Injection.provideRepository(context))
+    )
     viewModel.detailRestaurant.collectAsState(initial = UiState.Loading).value.let { uiState ->
         when (uiState) {
             is UiState.Loading -> {
@@ -71,6 +78,15 @@ fun DetailContent(
     modifier: Modifier = Modifier,
 ) {
 
+    val context = LocalContext.current
+    val viewModel: FavoriteViewModel = viewModel(
+        factory = ViewModelFactory(Injection.provideRepository(context))
+    )
+
+    val coroutineScope = rememberCoroutineScope()
+
+    val favorite: Boolean by viewModel.isFavorite(resto.id).collectAsState(initial = false)
+
     Column(modifier = modifier) {
         Column(
             modifier = Modifier
@@ -78,14 +94,16 @@ fun DetailContent(
                 .weight(1f)
         ) {
             Row(
+                horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = stringResource(R.string.back),
                     modifier = Modifier
-                        .padding(16.dp)
                         .clickable { onBackClick() }
                         .weight(1f, false)
                 )
@@ -108,6 +126,32 @@ fun DetailContent(
                         style = MaterialTheme.typography.subtitle1,
                     )
                 }
+
+                FavoriteIconButton(
+                    favorite,
+                    onClick = {
+                        if (favorite){
+                            viewModel.deleteFavoriteResto(resto.id)
+                            coroutineScope.launch {
+                                Toast.makeText(context, R.string.delete_favorite, Toast.LENGTH_SHORT).show()
+                            }
+                        } else {
+                            viewModel.saveFavoriteResto(
+                                RestaurantEntity(
+                                    resto.pictureId,
+                                    resto.city,
+                                    resto.name,
+                                    resto.rating,
+                                    resto.id,
+                                    true
+                                )
+                            )
+                            coroutineScope.launch {
+                                Toast.makeText(context, R.string.add_favorite, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    },
+                )
             }
 
             Column(

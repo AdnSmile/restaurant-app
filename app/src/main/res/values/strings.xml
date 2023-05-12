@@ -12,5 +12,7 @@
     <string name="profile_name">Nessafitri</string>
     <string name="profile_email">nessafitri16@gmail.com</string>
     <string name="search_resto">Search Restaurant</string>
-    <string name="empty_data">Data Empty</string>
+    <string name="empty_data">Empty Data</string>
+    <string name="delete_favorite">Remove from Favorite</string>
+    <string name="add_favorite">Add to Favorite</string>
 </resources>
