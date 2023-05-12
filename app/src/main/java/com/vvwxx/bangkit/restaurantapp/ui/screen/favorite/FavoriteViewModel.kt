@@ -13,7 +13,7 @@ class FavoriteViewModel(
 ) : ViewModel() {
 
     private val _listFavorite: MutableStateFlow<UiState<List<RestaurantEntity>>> = MutableStateFlow(UiState.Loading)
-    private val listFavorite: StateFlow<UiState<List<RestaurantEntity>>> get() = _listFavorite
+    val listFavorite: StateFlow<UiState<List<RestaurantEntity>>> get() = _listFavorite
 
     init {
         getAllFavoriteResto()

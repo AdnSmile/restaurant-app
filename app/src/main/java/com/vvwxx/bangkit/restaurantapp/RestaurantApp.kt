@@ -23,6 +23,7 @@ import androidx.navigation.navArgument
 import com.vvwxx.bangkit.restaurantapp.ui.navigation.NavigationItem
 import com.vvwxx.bangkit.restaurantapp.ui.navigation.Screen
 import com.vvwxx.bangkit.restaurantapp.ui.screen.detail.DetailScreen
+import com.vvwxx.bangkit.restaurantapp.ui.screen.favorite.FavoriteScreen
 import com.vvwxx.bangkit.restaurantapp.ui.screen.home.HomeScreen
 import com.vvwxx.bangkit.restaurantapp.ui.screen.profile.ProfileScreen
 import com.vvwxx.bangkit.restaurantapp.ui.theme.RestaurantAppTheme
@@ -60,7 +61,12 @@ fun RestaurantApp(
             }
 
             composable(Screen.Favorite.route) {
-                // panggil favorite screen nanti disini
+                FavoriteScreen(
+                    navigateToDetail = { id ->
+                        navController.navigate(Screen.DetailRestaurant.createRoute(id))
+                    },
+                    modifier = Modifier.background(color = MaterialTheme.colors.background)
+                )
             }
 
             composable(Screen.Profile.route) {
