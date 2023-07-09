@@ -48,12 +48,6 @@ fun ProfileItem(
                 )
             )
 
-            Text(
-                text = stringResource(R.string.profile_email),
-                style = MaterialTheme.typography.h5.copy(
-                    fontWeight = FontWeight.Bold
-                )
-            )
         }
     }
 }
