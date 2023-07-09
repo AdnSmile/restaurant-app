@@ -3,7 +3,8 @@
 Build Restaurant App with Jetpack compose, Room database and retrofit.
 
 ### User Interface
-<img src="https://github.com/AdnSmile/restaurant-app/assets/70699971/98bd66ca-c81e-4a14-a65c-7cb89460ee58" alt="List Restaurant" width="230"/>&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/AdnSmile/restaurant-app/assets/70699971/a28d4088-18c2-4d41-b246-bab437e4f0e5" alt="Search Restaurant" width="230"/>&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/AdnSmile/restaurant-app/assets/70699971/d74cef76-2f8e-42d0-8b2a-c6748eeb69a0" alt="Detail Restaurant" width="230"/>&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/AdnSmile/restaurant-app/assets/70699971/e1cd8308-760f-457f-a025-9969117d49e8" alt="Favorite Restaurant" width="230"/>
+<img src="https://github.com/AdnSmile/restaurant-app/assets/70699971/98bd66ca-c81e-4a14-a65c-7cb89460ee58" alt="List Restaurant" width="250"/>&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/AdnSmile/restaurant-app/assets/70699971/a28d4088-18c2-4d41-b246-bab437e4f0e5" alt="Search Restaurant" width="250"/>&nbsp;&nbsp;&nbsp;&nbsp; <br>
+<img src="https://github.com/AdnSmile/restaurant-app/assets/70699971/d74cef76-2f8e-42d0-8b2a-c6748eeb69a0" alt="Detail Restaurant" width="250"/>&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/AdnSmile/restaurant-app/assets/70699971/e1cd8308-760f-457f-a025-9969117d49e8" alt="Favorite Restaurant" width="250"/>
 
 - #### Feature
     - **Search**
